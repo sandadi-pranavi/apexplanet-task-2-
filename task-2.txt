@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML, CSS & JS Mastery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Base Styling */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    header {
+      background-color: #1a73e8;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      background-color: #ffffff;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #1a73e8;
+      font-weight: bold;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    /* Contact Form */
+    form {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    form input, form textarea, form button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 1rem;
+    }
+
+    form button {
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #0f59c8;
+    }
+
+    /* To-Do List */
+    .todo {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .todo ul {
+      padding-left: 20px;
+    }
+
+    .todo li {
+      margin: 8px 0;
+    }
+
+    .todo button {
+      margin-top: 10px;
+      background-color: crimson;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>My Web Skills Practice</h1>
+</header>
+
+<nav>
+  <a href="#">Home</a>
+  <a href="#">Contact</a>
+  <a href="#">Tasks</a>
+</nav>
+
+<div class="container">
+  <!-- Contact Form Section -->
+  <form id="contactForm">
+    <h2>Contact Us</h2>
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="email" id="email" placeholder="Your Email" required />
+    <textarea id="message" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+
+  <!-- To-Do List Section -->
+  <div class="todo">
+    <h2>To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Enter new task..." />
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+  </div>
+</div>
+
+<script>
+  // Form Validation
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+    if (!email.match(emailPattern)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    alert('Form submitted successfully!');
+    this.reset();
+  });
+
+  // To-Do List DOM Manipulation
+  function addTask() {
+    const taskInput = document.getElementById('taskInput');
+    const taskList = document.getElementById('taskList');
+    const taskText = taskInput.value.trim();
+
+    if (taskText === '') {
+      alert('Please enter a task!');
+      return;
+    }
+
+    const li = document.createElement('li');
+    li.textContent = taskText;
+
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = 'Remove';
+    removeBtn.style.marginLeft = '10px';
+    removeBtn.onclick = () => taskList.removeChild(li);
+
+    li.appendChild(removeBtn);
+    taskList.appendChild(li);
+
+    taskInput.value = '';
+  }
+</script>
+
+</body>
+</html>
